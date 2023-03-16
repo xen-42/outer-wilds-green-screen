@@ -1,4 +1,4 @@
-# outer-wilds-green-screen
+# Outer Wilds Green Screen
 
 ![image](https://user-images.githubusercontent.com/22628069/225514967-cc902d40-84f2-4980-912c-2e624adb0d69.png)
 
