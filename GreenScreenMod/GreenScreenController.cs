@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -59,6 +60,12 @@ internal class GreenScreenController : MonoBehaviour
 
 	private void TrackPoint(PointInfo point)
 	{
+		if (Points.Count > 0 && point.Body != Points.First().Body)
+		{
+			GreenScreenMod.WriteError("You can't extend a green screen between two rigidbodies!");
+			ClearPoints();
+		}
+
 		Points.Add(point);
 		Markers.Add(ShapeCreator.AddSphere(point.Body.gameObject, point.Position, 0.1f, Color.green));
 
