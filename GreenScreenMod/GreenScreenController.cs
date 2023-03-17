@@ -115,7 +115,7 @@ internal class GreenScreenController : MonoBehaviour
 			return null;
 		}
 
-		var pos = relativeBody.transform.InverseTransformPoint(Locator.GetPlayerCamera().transform.position);
+		var pos = relativeBody.transform.InverseTransformPoint(Locator.GetActiveCamera().transform.position);
 		return new PointInfo(pos, relativeBody);
 	}
 }
