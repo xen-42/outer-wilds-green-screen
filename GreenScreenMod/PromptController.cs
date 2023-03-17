@@ -7,14 +7,25 @@ namespace GreenScreenMod;
 public class PromptController : MonoBehaviour
 {
 	private ScreenPrompt _raycastPrompt, _atPositionPrompt, _clearMarkersPrompt, _clearScreensPrompt;
+	private ScreenPrompt[] _prompts;
 
-	public void Start()
+	public static PromptController Instance { get; private set; }
+
+	public void Awake() => Instance = this;
+
+	public void Start() => ResetPrompts();
+
+	public void ResetPrompts()
 	{
-		// Top right
-		_raycastPrompt = AddPrompt("Mark via raycast", PromptPosition.UpperRight, GreenScreenController.RaycastKey);
-		_atPositionPrompt = AddPrompt("Mark current position", PromptPosition.UpperRight, GreenScreenController.CurrentPositionKey);
-		_clearMarkersPrompt = AddPrompt("Clear markers", PromptPosition.UpperRight, GreenScreenController.ClearPointsKey);
-		_clearScreensPrompt = AddPrompt("Clear screens", PromptPosition.UpperRight, GreenScreenController.ClearScreensKey);
+		if (_prompts != null) foreach (var prompt in _prompts) Locator.GetPromptManager().RemoveScreenPrompt(prompt, PromptPosition.UpperRight);
+
+		_prompts = new ScreenPrompt[]
+		{
+			_raycastPrompt = AddPrompt("Mark via raycast", PromptPosition.UpperRight, GreenScreenController.RaycastKey),
+			_atPositionPrompt = AddPrompt("Mark current position", PromptPosition.UpperRight, GreenScreenController.CurrentPositionKey),
+			_clearMarkersPrompt = AddPrompt("Clear markers", PromptPosition.UpperRight, GreenScreenController.ClearPointsKey),
+			_clearScreensPrompt = AddPrompt("Clear screens", PromptPosition.UpperRight, GreenScreenController.ClearScreensKey)
+		};
 	}
 
 	public void Update()

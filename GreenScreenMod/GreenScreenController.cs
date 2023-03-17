@@ -15,10 +15,10 @@ internal class GreenScreenController : MonoBehaviour
 	public List<PointInfo> Points { get; private set; } = new();
 	public List<GameObject> Screens { get; private set; } = new();
 
-	public static Key RaycastKey => Key.O;
-	public static Key CurrentPositionKey => Key.I;
-	public static Key ClearPointsKey => Key.U;
-	public static Key ClearScreensKey => Key.K;
+	public static Key RaycastKey { get; set; } = Key.O;
+	public static Key CurrentPositionKey { get; set; } = Key.I;
+	public static Key ClearPointsKey { get; set; } = Key.U;
+	public static Key ClearScreensKey { get; set; } = Key.K;
 
 	public void Awake() => Instance = this;
 
@@ -67,7 +67,7 @@ internal class GreenScreenController : MonoBehaviour
 		}
 
 		Points.Add(point);
-		Markers.Add(ShapeCreator.AddSphere(point.Body.gameObject, point.Position, 0.1f, Color.green));
+		Markers.Add(ShapeCreator.AddSphere(point.Body.gameObject, point.Position, 0.1f));
 
 		GreenScreenMod.Write($"Tracking {Points.Count} points");
 	}

@@ -4,7 +4,7 @@ namespace GreenScreenMod;
 
 public static class ShapeCreator
 {
-	public static GameObject AddSphere(GameObject parent, Vector3 localPos, float radius, Color color)
+	public static GameObject AddSphere(GameObject parent, Vector3 localPos, float radius)
 	{
 		var sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 		sphere.transform.name = "DebugSphere";
@@ -16,10 +16,7 @@ public static class ShapeCreator
 			sphere.transform.localPosition = localPos;
 			sphere.transform.localScale = new Vector3(radius, radius, radius);
 
-			sphere.GetComponent<MeshRenderer>().material = new(Shader.Find("Sprites/Default"))
-			{
-				color = color
-			};
+			sphere.GetComponent<MeshRenderer>().sharedMaterial = GreenScreenMod.Instance.SharedMaterial;
 		}
 		catch
 		{
@@ -70,10 +67,7 @@ public static class ShapeCreator
 			mf.mesh = mesh;
 
 			var mr = greenScreen.AddComponent<MeshRenderer>();
-			mr.material = new Material(Shader.Find("Unlit/Color"))
-			{
-				color = new Color(0f, 0.5f, 0f, 1f)
-			};
+			mr.sharedMaterial = GreenScreenMod.Instance.SharedMaterial;
 
 			greenScreen.transform.parent = parent.transform;
 			greenScreen.transform.position = globalCenter;
