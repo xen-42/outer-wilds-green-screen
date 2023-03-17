@@ -40,34 +40,16 @@ public static class ShapeCreator
 			var p3 = parent.transform.TransformPoint(pos3);
 			var p4 = parent.transform.TransformPoint(pos4);
 
-			var mesh = new Mesh();
 			var globalCenter = (p1 + p2 + p3 + p4) / 4f;
 
-			mesh.vertices = new Vector3[]
-			{
-			globalCenter - p1,
-			globalCenter - p2,
-			globalCenter - p3,
-			globalCenter - p4
-			};
+			var plane1 = OneSidedScreen(globalCenter, p1, p2, p3, p4);
+			var plane2 = OneSidedScreen(globalCenter, p4, p3, p2, p1);
 
-			mesh.uv = new Vector2[]
-			{
-			new Vector2(1, 1),
-			new Vector2(1, 0),
-			new Vector2(0, 0),
-			new Vector2(0, 1)
-			};
+			plane1.transform.parent = greenScreen.transform;
+			plane1.transform.localPosition = Vector3.zero;
 
-			mesh.triangles = new int[] { 0, 1, 2, 0, 2, 3 };
-
-			mesh.RecalculateNormals();
-
-			var mf = greenScreen.AddComponent<MeshFilter>();
-			mf.mesh = mesh;
-
-			var mr = greenScreen.AddComponent<MeshRenderer>();
-			mr.sharedMaterial = GreenScreenMod.Instance.SharedMaterial;
+			plane2.transform.parent = greenScreen.transform;
+			plane2.transform.localPosition = Vector3.zero;
 
 			greenScreen.transform.parent = parent.transform;
 			greenScreen.transform.position = globalCenter;
@@ -83,6 +65,41 @@ public static class ShapeCreator
 		
 
 		return greenScreen;
+	}
+
+	private static GameObject OneSidedScreen(Vector3 globalCenter, Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
+	{
+		var mesh = new Mesh();
+
+		mesh.vertices = new Vector3[]
+		{
+			globalCenter - p1,
+			globalCenter - p2,
+			globalCenter - p3,
+			globalCenter - p4
+		};
+
+		mesh.uv = new Vector2[]
+		{
+			new Vector2(1, 1),
+			new Vector2(1, 0),
+			new Vector2(0, 0),
+			new Vector2(0, 1)
+		};
+
+		mesh.triangles = new int[] { 0, 1, 2, 0, 2, 3 };
+
+		mesh.RecalculateNormals();
+
+		var plane = new GameObject("Plane");
+
+		var mf = plane.AddComponent<MeshFilter>();
+		mf.mesh = mesh;
+
+		var mr = plane.AddComponent<MeshRenderer>();
+		mr.sharedMaterial = GreenScreenMod.Instance.SharedMaterial;
+
+		return plane;
 	}
 }
 
