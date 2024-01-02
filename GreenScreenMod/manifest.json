@@ -4,7 +4,8 @@
   "author": "xen",
   "name": "Green Screen",
   "uniqueName": "xen.GreenScreenMod",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "owmlVersion": "2.9.0",
-  "dependencies": []
+  "dependencies": [],
+  "donateLink": "https://www.patreon.com/xen42"
 }
