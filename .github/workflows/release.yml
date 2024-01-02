@@ -12,7 +12,7 @@ on:
 
 env:
     PROJ_USERNAME: xen
-    PROJ_NAME: Green Screen Mod
+    PROJ_NAME: GreenScreenMod
 
 jobs:
     pre_job:
