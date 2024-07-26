@@ -14,6 +14,7 @@ public class GreenScreenMod : ModBehaviour
 	public void Awake()
 	{
 		SharedMaterial = new Material(Shader.Find("Unlit/Color"));
+        SharedMaterial.renderQueue = 4000;
 		Instance = this;
 	}
 
